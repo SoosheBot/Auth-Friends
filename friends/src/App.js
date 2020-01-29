@@ -4,15 +4,15 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Friends from './components/Friends';
 import PrivateRoute from "./components/PrivateRoute";
-
-import "./App.css";
+import './App.css';
+import logo from './logo.svg';
 
 function App() {
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>An Authentic Friends Experience</h1>
+          <img src={logo} className='App-logo' alt='friends-logo' />
           <ul>
           <li>
             <Link to='/login'>Login</Link>
@@ -22,13 +22,11 @@ function App() {
           </li>
         </ul>
         </header>
-        {/* <div className='login-field'> */}
         <Switch>
           <PrivateRoute path='/protected' component={Friends} />
           <Route path='/login' component={Login} />
-        </Switch>
-        </div>
-      {/* </div> */}
+        </Switch>        
+      </div>
     </Router>
   );
 }

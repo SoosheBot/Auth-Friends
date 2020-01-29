@@ -27,10 +27,6 @@ const AddFriends = props => {
       .catch(err => console.log("submit error", err.response));
   };
 
-
-
- 
-
   return (
     <div>
       <form

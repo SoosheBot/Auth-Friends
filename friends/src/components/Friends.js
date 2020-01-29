@@ -1,6 +1,34 @@
 import React, { useState, useEffect } from "react";
 import AddFriends from "./AddFriends";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import styled from 'styled-components';
+
+const StyledFriends = styled.div`
+width:95%;
+display:flex;
+flex-direction:row;
+flex-wrap:wrap;
+justify-content:space-around;
+align-items:center;
+margin:10px;
+
+.friends {
+  flex-wrap:nowrap;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: space-around;
+};
+
+button {
+  background-color: darkred;
+  color:white;
+  font-weight: bold;
+  padding:5px;
+  border-radius:5px;
+ };
+ 
+ `;
 
 const Friends = () => {
   const [friends, setFriends] = useState([]);
@@ -25,30 +53,33 @@ const Friends = () => {
       .catch(err => console.log("delete error", err.response));
   };
 
-  const updateFriend = updated => {
-    axiosWithAuth()
-    .put(`/api/friends/${updated.id}`, updated)
-    .then(res => {
+  // const updateFriend = updated => {
+  //   axiosWithAuth()
+  //   .put(`/api/friends/${updated.id}`, updated)
+  //   .then(res => {
 
-    })
-    .catch(err => console.log("update error", err.response));
-  }
+  //   })
+  //   .catch(err => console.log("update error", err.response));
+  // }
 
   return (
+    
     <div className="friends">
-      <h1>Friends</h1>
       <AddFriends />
+      <StyledFriends>
       {friends.map(friend => (
         <div key={friend.id} friend={friend}>
           <h4>Name: {friend.name}</h4>
           <h4>Age: {friend.age}</h4>
           <h4>Email: {friend.email}</h4>
           {/* <span> */}
-          <button className="delete" onClick={() => deleteFriend(friend)}>
+          <button className='delete-button' onClick={() => deleteFriend(friend)}>
             X
           </button>
         </div>
       ))}
+    
+    </StyledFriends>
     </div>
   );
 };
