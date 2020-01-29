@@ -1,32 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import AddFriends from "./AddFriends";
+import AddFriends from "./AddFriends";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const Friends = () => {
-  const [info, setInfo] = useState({ name: "", age: "", email: "" });
   const [friends, setFriends] = useState([]);
-
-  const handleChange = e => {
-    setInfo({
-      ...info,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    axiosWithAuth()
-      .post("api/friends", info)
-      .then(res => {
-        setInfo({
-          ...info,
-          name: "",
-          age: "",
-          email: ""
-        });
-      })
-      .catch(err => console.log("submit error", err.response));
-  };
 
   useEffect(() => {
     axiosWithAuth()
@@ -38,36 +15,37 @@ const Friends = () => {
       .catch(err => console.log("Axios call for friends list error", err));
   },[]);
 
+  const deleteFriend = (deleted) => {
+    // e.preventDefault();
+    axiosWithAuth()
+      .delete(`/api/friends/${deleted.id}`, deleted)
+      .then(res => {
+        console.log('delete response', res.data)
+      })
+      .catch(err => console.log("submit error", err.response));
+  
+
+    };
+
   return (
     <div className="friends">
       <h1>Friends</h1>
+      <AddFriends />
       {friends.map(friend => (
-        <div key={friend.id} friend={friend}></div>     
+<div key={friend.id} friend={friend}>
+      <h4>Name: {friend.name}</h4>
+      <h4>Age: {friend.age}</h4>
+<h4>Email: {friend.email}</h4>
+     
+    <span>
+    <span className="delete" onClick={() => deleteFriend(friend)}>
+      x
+    </span>{" "}
+    {friend.friend}
+  </span>  
+  </div>  
       ))}
-        <form className='friend-form' data-testid='friend-form' onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={info.name}
-          placeholder="Add friend's name..."
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="age"
-          value={info.age}
-          placeholder="Add friend's age"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="email"
-          value={info.email}
-          placeholder="Add friend's email..."
-          onChange={handleChange}
-        />
-        <button type="submit">Add New Friend</button>
-      </form>
+        
     </div>
   );
 };
