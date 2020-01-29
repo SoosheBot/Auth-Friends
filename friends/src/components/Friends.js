@@ -15,17 +15,24 @@ const Friends = () => {
       .catch(err => console.log("Axios call for friends list error", err));
   }, []);
 
-
   const deleteFriend = deleted => {
     axiosWithAuth()
       .delete(`/api/friends/${deleted.id}`, deleted)
       .then(res => {
-        // friends = friends.filter(f => f.id !== Number(id));
-        setFriends(res.data)
+        setFriends(res.data);
         console.log("delete response", res.data);
       })
-      .catch(err => console.log("submit error", err.response));
+      .catch(err => console.log("delete error", err.response));
   };
+
+  const updateFriend = updated => {
+    axiosWithAuth()
+    .put(`/api/friends/${updated.id}`, updated)
+    .then(res => {
+
+    })
+    .catch(err => console.log("update error", err.response));
+  }
 
   return (
     <div className="friends">
@@ -37,8 +44,9 @@ const Friends = () => {
           <h4>Age: {friend.age}</h4>
           <h4>Email: {friend.email}</h4>
           {/* <span> */}
-            <button className="delete" onClick={() => deleteFriend(friend)}>
-              X</button>
+          <button className="delete" onClick={() => deleteFriend(friend)}>
+            X
+          </button>
         </div>
       ))}
     </div>
