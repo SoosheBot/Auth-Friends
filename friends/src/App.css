@@ -39,6 +39,9 @@ a {
   justify-content:center;
 };
 
-
+.button .delete {
+  color: darkred;
+  font-weight: bolder;
+}
 
 

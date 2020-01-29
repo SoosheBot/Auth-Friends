@@ -9,43 +9,38 @@ const Friends = () => {
     axiosWithAuth()
       .get("api/friends")
       .then(res => {
-        console.log('the response', res);
-        setFriends(res.data)
-        })
+        console.log("the response", res);
+        setFriends(res.data);
+      })
       .catch(err => console.log("Axios call for friends list error", err));
-  },[]);
+  }, []);
 
-  const deleteFriend = (deleted) => {
-    // e.preventDefault();
+
+  const deleteFriend = deleted => {
     axiosWithAuth()
       .delete(`/api/friends/${deleted.id}`, deleted)
       .then(res => {
-        console.log('delete response', res.data)
+        // friends = friends.filter(f => f.id !== Number(id));
+        setFriends(res.data)
+        console.log("delete response", res.data);
       })
       .catch(err => console.log("submit error", err.response));
-  
-
-    };
+  };
 
   return (
     <div className="friends">
       <h1>Friends</h1>
       <AddFriends />
       {friends.map(friend => (
-<div key={friend.id} friend={friend}>
-      <h4>Name: {friend.name}</h4>
-      <h4>Age: {friend.age}</h4>
-<h4>Email: {friend.email}</h4>
-     
-    <span>
-    <span className="delete" onClick={() => deleteFriend(friend)}>
-      x
-    </span>{" "}
-    {friend.friend}
-  </span>  
-  </div>  
+        <div key={friend.id} friend={friend}>
+          <h4>Name: {friend.name}</h4>
+          <h4>Age: {friend.age}</h4>
+          <h4>Email: {friend.email}</h4>
+          {/* <span> */}
+            <button className="delete" onClick={() => deleteFriend(friend)}>
+              X</button>
+        </div>
       ))}
-        
     </div>
   );
 };
