@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+  height:100vh;
+}
+
+.App-header {
+  height:50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  margin-top:25px;
+  width:60%;
+}
+
+
+ul {
+  display: flex;
+  justify-content: flex-end;  
+}
+
+li {
+  list-style: none;
+  margin-right: 25px;
+}
+
+a {
+  text-decoration: none;
+  padding: 6px;
+  color: darkgreen;
+  font-weight: bold;
+;
+}
+
+
+
+
+
